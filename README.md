@@ -64,24 +64,42 @@ declarations: [
 
 
 ***************************************************************
-### App sturcture
-App folder:
-  - AppModule:
 
-    declare(component1 + all the "childern" components)
-  
-	- component:*Component1.ts*
-  
-	- view: *Component1.html* will contain child-components as selector/Tag for eks componenet2 **<app-heroes></app-heroes>**
 
-  - component2 folder:
-    - component:Component2.ts 
+- Dashes work just as well
+
+  weqeqweqweqwe
+
+- And if you have sub points, put two spaces before the dash or star:
+  - Like this
+  
+    weqeqweqweqwe
     
+  - And this
+  
+  
+ 
+### App sturcture
+
+**App folder:**
+
+- AppModule
+
+  declare(component1 + all the "childern" components)
+
+- component:*Component1.ts*
+  
+- view: *Component1.html* will contain child-components as selector/Tag for eks componenet2 **<app-heroes></app-heroes>**
+
+- component2 folder:
+  
+  - component:Component2.ts 
+
 			```@Component({
   					selector: 'app-heroes', ...
       ```
 
-    - view: Component2.html
+   - view: Component2.html
 		
 **To embed component2 in component1:**
 
