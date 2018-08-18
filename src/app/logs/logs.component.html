@@ -1,0 +1,6 @@
+<div *ngIf="logService.logs.length">
+  <h2>Logs</h2>
+  <button class="clear" (click)="logService.clear()">Clear</button>
+  <div *ngFor="let log of logService.logs">{{log}}</div>
+
+</div>
