@@ -1,115 +1,84 @@
 
-# Branch1
+# Branch2
+
 ## By the end of the tutorial you will be able to do the following:
-* Use built-in Angular **`directives`** to show and hide elements and display lists of hero data.
 
-* Create Angular components to display hero details and show an array of heroes.
-    `ng generate component heroes`
+Create a shared service to assemble the heroes.
 
-* Use `one-way` data binding for read-only data.
+********************************************************************************************************
 
-* Add editable fields to update a model with two-way data binding.
-    - Although ngModel is a valid Angular directive, it isn't available by default. It belongs to the optional FormsModule and you must opt-in to using it.
-```
-        import { FormsModule } from '@angular/forms'; 
-        @NgModule({
-        ...
-        imports: [FormsModule],
-        })
-```
-* Bind component methods to user events, like keystrokes and clicks.
+### Why services
 
-* Enable users to select a hero from a master list and edit that hero in the details view.
+Components shouldn't fetch or save data directly and they certainly shouldn't knowingly present fake data. They should focus on presenting data and delegate data access to a **service**.
+
+You'll create a **HeroService** and inject it in **HeroesComponent**
+
+**How to:**
+
+- **Create the HeroService**
+
+    `ng generate service hero`
+
+- **Implement the hero list**
+
+  Get the list from external server or from mock-data.
+
+- **Provide the HeroService**
+
+	Now, you need to make sure that the HeroService is registered as the provider of this service. You are registering it with an injector, which is the object that is responsible for choosing and injecting the provider where it is required. 
+
+	By default, the Angular CLI command ng generate service registers a provider with the root injector for your service by including provider metadata in the @Injectable decorator.
+
+	*hero.service.ts*
+  ```
+    @Injectable({
+      providedIn: 'root'
+    })
+  ```
+  
+	When you provide the service at the root level, Angular creates **a single**, shared instance of HeroService and injects into any class that asks for it. Registering the provider in the @Injectable metadata also allows Angular to optimize an app by removing the service if it turns out not to be used after all. 
+
+- **Use the service in the other components for ex. HeroesComponent**
+
+  *heroes.component.ts*
+
+	1- import { HeroService } from '../hero.service';
+  
+	2- Inject HeroService in the constructor
+		constructor(private heroService: HeroService) { } 
     
-* Format data with pipes.  
-    `<h2>{{hero.name | uppercase}} Details</h2>`
-    Pipes are a good way to format strings, currency amounts, dates and other display data. Angular ships with several  built-in pipes and you can create your own.
+- **getData async**
 
- 
-### Install angular/cli
-`npm install -g @angular/cli`
+    If the data is fetched from a server, the HeroService must wait for the server to respond, getHeroes() cannot return immediately with hero data, and the browser will not block while the service waits.
+    
+    It can take a *callback*. It could return a *Promise*. It could return an *Observable*
+    
+    Angular's **HttpClient methods** return RxJS Observables. In this tutorial, you'll simulate getting data from the server with the RxJS of() function
 
+    *hero.service.ts*
 
+    ```
+    getHeroes(): Observable<Hero[]> {
+      return of(HEROES);   
+      // OBS of(HEROES) returns an Observable<Hero[]> that emits a single value, 
+      // the array of mock heroes.
+    }
+    ```
 
+    *heroes.component.ts*
 
-### Create a new application
-`ng new angular-tour-of-heroes`
-Will create the root **NgModule** and the the **root component**.
-
-The Angular CLI generated a new project with a default application and supporting files.
-
-You can add pre-packaged functionality to a new project by using the ng add command. The ng add command transforms a project by applying the schematics in the specified package. For more information, see the Angular CLI documentation.
-
-Angular Material provides schematics for typical app layouts. See the Angular Material documentation for details.
-
-
-### Create a new component.
-
-`ng generate component heroes`
-
-Will create new componenet **heroes** and declares the HeroesComponent in the **@NgModule.declarations** array.
-
-`
-declarations: [
-  AppComponent,
-  HeroesComponent
-]
-`
-
-*Every component must be declared in exactly one NgModule.*
- 
-
-### run the application
-`ng serve --open`
+    ```
+    getHeroes(): void {
+      this.heroService.getHeroes()
+          .subscribe(heroes => this.heroes = heroes);
+    }
+    ```
+    this will wait for the Observable to emit the array of heroes— which could happen now or several minutes from now. Then subscribe passes the emitted array to the callback, which sets the component's heroes property.
+    
+    >   Promise vs Observable
+    >   https://stackoverflow.com/a/37365955
 
 
-***************************************************************
- 
-### App sturcture
-
-**App folder:**
-
-- AppModule
-
-  declare(component1 + all the "childern" components)
-
-- component:*Component1.ts*
-  
-- view: *Component1.html* will contain child-components as selector/Tag for eks componenet2 **<app-heroes></app-heroes>**
-
-- component2 folder:
-  
-  - component:Component2.ts 
-
-			```@Component({
-  					selector: 'app-heroes', ...
-      ```
-
-   - view: Component2.html
-		
-**To embed component2 in component1:**
-
-1. "Declare" component2 in AppModule
-2. add `<component2>`-tag til view: *Component1.html*
-
-
-
-### CSS
-You could add more styles to styles.css and keep growing that stylesheet as you add components.
-
-You may prefer instead to define private styles for a specific component and keep everything a component needs— the code, the HTML, and the CSS —together in one place.
-
-This approach makes it easier to re-use the component somewhere else and deliver the component's intended appearance even if the global styles are different.
-
-**Binding conditional css classes:**
-
-`<div [class.cssClassname]="bool"> ... </div>`
-
-If we want to set a **cssClass conditianally** on an element for ex.  `<div class="selected"> ... </div>` when `"hero === selectedHero"` we can do the flwg:
-
-`<div [class.selected]="hero === selectedHero"> ... </div>`
-
-When the hero is the same as the selectedHero, Angular adds the selected CSS class. When the two heroes are different, Angular removes the class.
 
 
 
