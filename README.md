@@ -14,7 +14,7 @@ Components shouldn't fetch or save data directly and they certainly shouldn't kn
 You'll create a **HeroService** and inject it in **HeroesComponent**
 
 **How to:**
-
+ 
 - **Create the HeroService**
 
     `ng generate service hero`
