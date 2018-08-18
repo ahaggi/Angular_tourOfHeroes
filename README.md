@@ -6,13 +6,18 @@
 You'll create a **MessageService** for saving messages to be displayed, and inject it in two places:
 
  1- in *HeroService* which uses the service to send a message.
+ 
  2- in *MessagesComponent* which displays that message.
 
 When HeroService fetches fetches the Heroes list:
-    - HeroService add Msg to the MessageService
-    - HeroService can access the messages by injecting MessageService into the HeroService.
-    - MessagesComponent displays messages at the bottom of the screen.
-	- display a message in MessagesComponent when HeroService fetches heroes successfully.
+
+  - HeroService add Msg to the MessageService
+
+  - HeroService can access the messages by injecting MessageService into the HeroService.
+
+  - MessagesComponent displays messages at the bottom of the screen.
+
+  - display a message in MessagesComponent when HeroService fetches heroes successfully.
 
 
 ### How to:
