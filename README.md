@@ -64,20 +64,6 @@ declarations: [
 
 
 ***************************************************************
-
-
-- Dashes work just as well
-
-  weqeqweqweqwe
-
-- And if you have sub points, put two spaces before the dash or star:
-  - Like this
-  
-    weqeqweqweqwe
-    
-  - And this
-  
-  
  
 ### App sturcture
 
