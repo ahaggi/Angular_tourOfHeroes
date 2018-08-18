@@ -8,7 +8,7 @@ import { HeroService } from '../hero.service';
   styleUrls: ['./heroes.component.css']
 })
 export class HeroesComponent implements OnInit {
-  heroes: Hero[];
+  private heroes: Hero[];
   selectedHero: Hero;
 
   /* Reserve the constructor for simple initialization such as wiring constructor parameters to properties. 
@@ -19,7 +19,6 @@ export class HeroesComponent implements OnInit {
   ngOnInit() {
     this.getHeroes();
   }
-
 
   onSelect(hero: Hero): void {
     this.selectedHero = hero;

@@ -1,84 +1,73 @@
-
-# Branch2
+# Branch3
 
 ## By the end of the tutorial you will be able to do the following:
+- Use _**service-in-service**_ , you inject the *MessageService* into the *HeroService* which is injected into the *HeroesComponent*.
 
-Create a shared service to assemble the heroes.
+You'll create a **MessageService** for saving messages to be displayed, and inject it in two places:
 
-********************************************************************************************************
+ 1- in *HeroService* which uses the service to send a message.
+ 2- in *MessagesComponent* which displays that message.
 
-### Why services
+When HeroService fetches fetches the Heroes list:
+    - HeroService add Msg to the MessageService
+    - HeroService can access the messages by injecting MessageService into the HeroService.
+    - MessagesComponent displays messages at the bottom of the screen.
+	- display a message in MessagesComponent when HeroService fetches heroes successfully.
 
-Components shouldn't fetch or save data directly and they certainly shouldn't knowingly present fake data. They should focus on presenting data and delegate data access to a **service**.
 
-You'll create a **HeroService** and inject it in **HeroesComponent**
+### How to:
 
-**How to:**
- 
-- **Create the HeroService**
+* Create MessagesComponent
 
-    `ng generate service hero`
+    `ng generate component messages`
 
-- **Implement the hero list**
 
-  Get the list from external server or from mock-data.
+* Modify *AppComponent* template to display the generated MessagesComponent
+    ```	
+        ...
+    	<app-messages></app-messages>
+    	...
+    ```
 
-- **Provide the HeroService**
+* Create the **MessageService**
 
-	Now, you need to make sure that the HeroService is registered as the provider of this service. You are registering it with an injector, which is the object that is responsible for choosing and injecting the provider where it is required. 
+    `ng generate service message`
 
-	By default, the Angular CLI command ng generate service registers a provider with the root injector for your service by including provider metadata in the @Injectable decorator.
+	The service has two methods: one to add() a message to the cache "array" and another to clear() the array
 
-	*hero.service.ts*
-  ```
-    @Injectable({
-      providedIn: 'root'
-    })
-  ```
-  
-	When you provide the service at the root level, Angular creates **a single**, shared instance of HeroService and injects into any class that asks for it. Registering the provider in the @Injectable metadata also allows Angular to optimize an app by removing the service if it turns out not to be used after all. 
 
-- **Use the service in the other components for ex. HeroesComponent**
+* Inject MessageService into the HeroService
+    ```
+    import { MessageService } from './message.service';
+    constructor(private messageService: MessageService) { }
+    ```
+    >This is a typical *__service-in-service__* , you inject the *MessageService* into the *HeroService* which is injected into the *HeroesComponent*.
 
-  *heroes.component.ts*
+* Send a message from HeroService
 
-	1- import { HeroService } from '../hero.service';
-  
-	2- Inject HeroService in the constructor
-		constructor(private heroService: HeroService) { } 
-    
-- **getData async**
-
-    If the data is fetched from a server, the HeroService must wait for the server to respond, getHeroes() cannot return immediately with hero data, and the browser will not block while the service waits.
-    
-    It can take a *callback*. It could return a *Promise*. It could return an *Observable*
-    
-    Angular's **HttpClient methods** return RxJS Observables. In this tutorial, you'll simulate getting data from the server with the RxJS of() function
-
-    *hero.service.ts*
-
+	Modify the **getHeroes** method to send a message when the heroes are fetched
     ```
     getHeroes(): Observable<Hero[]> {
-      return of(HEROES);   
-      // OBS of(HEROES) returns an Observable<Hero[]> that emits a single value, 
-      // the array of mock heroes.
+    	...
+    	this.messageService.add('HeroService: fetched heroes');
+    	...
     }
     ```
 
-    *heroes.component.ts*
+* Display the message from *HeroService* in the MessagesComponent 
 
+	The MessagesComponent should display all messages
+	
+	*messages.component.ts* 
     ```
-    getHeroes(): void {
-      this.heroService.getHeroes()
-          .subscribe(heroes => this.heroes = heroes);
-    }
-    ```
-    this will wait for the Observable to emit the array of heroes— which could happen now or several minutes from now. Then subscribe passes the emitted array to the callback, which sets the component's heroes property.
-    
-    >   Promise vs Observable
-    >   https://stackoverflow.com/a/37365955
+    import { MessageService } from '../message.service';
+    constructor(**public** messageService: MessageService) {}
+    ```	
+    >*compatiblity with AOT (Ahead Of Time)* 
+    >The messageService property must be *public* because you're about to *bind/use* it in the template.
+    *Angular only binds to public component properties*
 
-
+* (Bind to)/ use the MessageService in messages.component.html
 
 
 
