@@ -1,78 +1,78 @@
 # Branch3
 
 ## By the end of the tutorial you will be able to do the following:
-- Use _**service-in-service**_ , you inject the *MessageService* into the *HeroService* which is injected into the *HeroesComponent*.
+- Use _**service-in-service**_ , you inject the *LogService* into the *HeroService* which is injected into the *HeroesComponent*.
 
-You'll create a **MessageService** for saving messages to be displayed, and inject it in two places:
+You'll create a **LogService** for saving logs to be displayed, and inject it in two places:
 
- 1- in *HeroService* which uses the service to send a message.
+ 1- in *HeroService* which uses the service to send a log.
  
- 2- in *MessagesComponent* which displays that message.
+ 2- in *LogsComponent* which displays that log.
 
 When HeroService fetches fetches the Heroes list:
 
-  - HeroService add Msg to the MessageService
+  - HeroService add Msg to the LogService
 
-  - HeroService can access the messages by injecting MessageService into the HeroService.
+  - HeroService can access the logs by injecting LogService into the HeroService.
 
-  - MessagesComponent displays messages at the bottom of the screen.
+  - LogsComponent displays logs at the bottom of the screen.
 
-  - display a message in MessagesComponent when HeroService fetches heroes successfully.
+  - display a log in LogsComponent when HeroService fetches heroes successfully.
 
 
 ### How to:
 
-* Create MessagesComponent
+* Create LogsComponent
 
-    `ng generate component messages`
+    `ng generate component logs`
 
 
-* Modify *AppComponent* template to display the generated MessagesComponent
+* Modify *AppComponent* template to display the generated LogsComponent
     ```	
         ...
-    	<app-messages></app-messages>
+    	<app-logs></app-logs>
     	...
     ```
 
-* Create the **MessageService**
+* Create the **LogService**
 
-    `ng generate service message`
+    `ng generate service log`
 
-	The service has two methods: one to add() a message to the cache "array" and another to clear() the array
+	The service has two methods: one to add() a log to the cache "array" and another to clear() the array
 
 
-* Inject MessageService into the HeroService
+* Inject LogService into the HeroService
     ```
-    import { MessageService } from './message.service';
-    constructor(private messageService: MessageService) { }
+    import { LogService } from './log.service';
+    constructor(private logService: LogService) { }
     ```
-    >This is a typical *__service-in-service__* , you inject the *MessageService* into the *HeroService* which is injected into the *HeroesComponent*.
+    >This is a typical *__service-in-service__* , you inject the *LogService* into the *HeroService* which is injected into the *HeroesComponent*.
 
-* Send a message from HeroService
+* Send a log from HeroService
 
-	Modify the **getHeroes** method to send a message when the heroes are fetched
+	Modify the **getHeroes** method to send a log when the heroes are fetched
     ```
     getHeroes(): Observable<Hero[]> {
     	...
-    	this.messageService.add('HeroService: fetched heroes');
+    	this.logService.add('HeroService: fetched heroes');
     	...
     }
     ```
 
-* Display the message from *HeroService* in the MessagesComponent 
+* Display the log from *HeroService* in the LogsComponent 
 
-	The MessagesComponent should display all messages
+	The LogsComponent should display all logs
 	
-	*messages.component.ts* 
+	*logs.component.ts* 
     ```
-    import { MessageService } from '../message.service';
-    constructor(**public** messageService: MessageService) {}
+    import { LogService } from '../log.service';
+    constructor(**public** logService: LogService) {}
     ```	
     >*compatiblity with AOT (Ahead Of Time)* 
-    >The messageService property must be *public* because you're about to *bind/use* it in the template.
+    >The logService property must be *public* because you're about to *bind/use* it in the template.
     *Angular only binds to public component properties*
 
-* (Bind to)/ use the MessageService in messages.component.html
+* (Bind to)/ use the LogService in logs.component.html
 
 
 
