@@ -25,8 +25,19 @@ export class HeroesComponent implements OnInit {
   }
 
   getHeroes(): void {
-    this.heroService.getHeroes()
-      .subscribe(heroes => this.heroes = heroes);
+    // this.heroService.getHeroes()
+    //   .subscribe(heroes => this.heroes = heroes); //..subscribe(next handler)
+
+
+    // Create observer object, next handler is required. The error and complete handlers are optional
+    const myObserver = {
+      next: heroes => this.heroes = heroes,
+      error: err => console.error('Observer got an error: ' + err),
+      complete: () => console.log('Observer got a complete notification'),
+    };
+
+    const observable = this.heroService.getHeroes();
+    observable.subscribe(myObserver);
   }
 
   fn(index: number, hero: Hero): number { return hero.id; }
