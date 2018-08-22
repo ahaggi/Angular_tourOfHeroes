@@ -12,23 +12,17 @@ export class DashboardComponent implements OnInit {
   constructor(private heroService: HeroService) { }
 
   ngOnInit() {
-
     this.getHero();
-
   }
-
 
   getHero(): void {
     var observer = {
-      next: (arry) => {
-        this.heroes = arry
-      },
+      next: (arry) => { this.heroes = arry },
       complete: () => console.log('Observer got a complete notification: dashboard.component'),
 
     };
-    this.heroService.getHeroes().subscribe(observer
 
-    );
+    this.heroService.getHeroes().subscribe(observer);
 
   }
 }
