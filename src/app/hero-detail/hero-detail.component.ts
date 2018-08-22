@@ -21,6 +21,8 @@ export class HeroDetailComponent implements OnInit {
 // This component makes a request but it can't actually delete a hero.
   delete() {
     this.deleteRequest.emit(this.heroDetails);
+    this.selectedHero = null;
+
   }
   ngOnInit() {
   }
