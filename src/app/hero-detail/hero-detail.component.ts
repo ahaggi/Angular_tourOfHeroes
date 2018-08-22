@@ -44,10 +44,25 @@ export class HeroDetailComponent implements OnInit {
   goBack():void{
     this.location.back();
   }
-  delete() {
-    this.heroService.deleteHero(this.heroDetails)
-    this.heroDetails=null
-    this.goBack();
+
+  save(): void {
+
+    const observer = {
+      next:() => this.goBack()
+    }
+    this.heroService.updateHero(this.heroDetails)
+      .subscribe(observer);
   }
 
+
+  // Although the component delegates hero deletion to the HeroService, it remains responsible for updating its own list of heroes
+  delete(): void {
+    const observer  = {
+      next: () => { //Obs observable av deleteHero er lik null!!!
+        this.goBack()
+      }
+    }
+    
+    this.heroService.deleteHero(this.heroDetails).subscribe(observer);
+  }
 }

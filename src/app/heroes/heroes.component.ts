@@ -18,15 +18,6 @@ export class HeroesComponent implements OnInit {
   ngOnInit() {
     this.getHeroes();
   }
-  deleteHero(hero: Hero): void {
-    this.heroService.deleteHero(hero);
-    // this.getHeroes(); 
-    // this.heroes and heroService.heroes is the same object
-    // if myobserver was = {
-      //next: heroes => this.heroes = hs.slice() 
-    // }
-    // then this.hero and heroService.heroes will be 2 diff arrays
-  }
 
 
   getHeroes(): void {
@@ -43,6 +34,31 @@ export class HeroesComponent implements OnInit {
 
     const observable = this.heroService.getHeroes();
     observable.subscribe(myObserver);
+  }
+
+  //Although the component delegates hero adding to the HeroService, it remains responsible for updating its own list of heroes
+  add(name: string): void {
+
+    const observer = {
+      next: hero => {
+        this.heroes.push(hero);
+      }
+    }
+    name = name.trim();
+    if (!name) { return; }
+    this.heroService.addHero({ name } as Hero) // cast {name} as Hero obj
+      .subscribe(observer);
+  }
+
+  // Although the component delegates hero deletion to the HeroService, it remains responsible for updating its own list of heroes
+  delete(hero: Hero): void {
+    const observer = {
+      next: _ => { //Obs observable av deleteHero er lik null!!!
+        this.heroes = this.heroes.filter(h => h !== hero)
+      }
+    }
+
+    this.heroService.deleteHero(hero).subscribe(observer);
   }
 
   fn(index: number, hero: Hero): number { return hero.id; }
