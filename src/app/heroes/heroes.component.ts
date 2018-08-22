@@ -9,7 +9,6 @@ import { HeroService } from '../hero.service';
 })
 export class HeroesComponent implements OnInit {
   private heroes: Hero[];
-  selectedHero: Hero;
 
   /* Reserve the constructor for simple initialization such as wiring constructor parameters to properties. 
   The constructor shouldn't do anything. It certainly shouldn't call a function that makes HTTP requests to
@@ -29,9 +28,6 @@ export class HeroesComponent implements OnInit {
     // then this.hero and heroService.heroes will be 2 diff arrays
   }
 
-  onSelect(hero: Hero): void {
-    this.selectedHero = hero;
-  }
 
   getHeroes(): void {
     // this.heroService.getHeroes()
