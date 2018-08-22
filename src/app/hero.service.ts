@@ -16,4 +16,9 @@ export class HeroService {
     this.logService.add('HeroService: fetched heroes');
     return of(HEROES);  //OBS of(HEROES) returns an Observable<Hero[]> that emits a single value, the array of mock heroes.
   }
+
+  deleteHero(hero:Hero):void{
+    var index = HEROES.indexOf(hero)
+    HEROES.splice(index , 1)
+    }
 }
