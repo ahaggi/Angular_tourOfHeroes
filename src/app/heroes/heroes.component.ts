@@ -21,6 +21,7 @@ export class HeroesComponent implements OnInit {
   }
   deleteHero(hero: Hero): void {
     this.heroService.deleteHero(hero);
+    this.selectedHero = null;
     // this.getHeroes(); 
     // this.heroes and heroService.heroes is the same object
     // if myobserver was = {
