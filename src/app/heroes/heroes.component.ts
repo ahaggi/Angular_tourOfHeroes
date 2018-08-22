@@ -19,6 +19,15 @@ export class HeroesComponent implements OnInit {
   ngOnInit() {
     this.getHeroes();
   }
+  deleteHero(hero: Hero): void {
+    this.heroService.deleteHero(hero);
+    // this.getHeroes(); 
+    // this.heroes and heroService.heroes is the same object
+    // if myobserver was = {
+      //next: heroes => this.heroes = hs.slice() 
+    // }
+    // then this.hero and heroService.heroes will be 2 diff arrays
+  }
 
   onSelect(hero: Hero): void {
     this.selectedHero = hero;
@@ -33,7 +42,7 @@ export class HeroesComponent implements OnInit {
     const myObserver = {
       next: heroes => this.heroes = heroes,
       error: err => console.error('Observer got an error: ' + err),
-      complete: () => console.log('Observer got a complete notification'),
+      complete: () => console.log('Observer got a complete notification: heroes.component'),
     };
 
     const observable = this.heroService.getHeroes();

@@ -1,27 +1,16 @@
-<div *ngIf="selectedHero">
 
-  <p>
-    {{selectedHero.name | uppercase}} Details</p>
-  <div><span>id: </span>{{selectedHero.id}}</div>
-  <div><span>name: </span>{{selectedHero.name}}</div>
-
-  <div>
-    <label>
-      <input [(ngModel)]="selectedHero.name" placeholder="name">
-    </label>
-  </div>
-
-</div>
+<app-hero-detail [heroDetails]="selectedHero" (deleteRequest)="deleteHero($event)"></app-hero-detail>
 
 
 <h2>My Heroes</h2>
 <ul class="heroes">
   <li>
      
-    <span class="badge">nd</span> <span class="hero-data">Id</span> Hero's name
+    <span > nd </span> <span class="hero-data"> Id </span>  Hero's name
   </li>
   <li *ngFor="let hero of heroes; let i=index ; trackBy:fn"
       (click)="onSelect(hero)"
+      
       [class.selected]="hero === selectedHero"
       >
     <span class="badge">{{i + 1}} </span> {{hero.id}} {{hero.name}}
