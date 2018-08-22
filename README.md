@@ -182,4 +182,4 @@ deleteHandler(v:string)=>{....}
 // component2.foo_2 = component1.foo_1 and listen to event component2.deleteRequest
 ```
 
-https://angular.io/generated/images/guide/template-syntax/input-output.png
+![Image of Yaktocat](https://angular.io/generated/images/guide/template-syntax/input-output.png)
