@@ -14,6 +14,7 @@ import { LogsComponent } from './logs/logs.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeroDetailComponent } from './hero-detail/hero-detail.component';
 import { AppRoutingModule } from './app-routing.module';
+import { HeroSearchComponent } from './hero-search/hero-search.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { AppRoutingModule } from './app-routing.module';
     LogsComponent,
     DashboardComponent,
     HeroDetailComponent,
+    HeroSearchComponent,
   ],
   imports: [
     BrowserModule,

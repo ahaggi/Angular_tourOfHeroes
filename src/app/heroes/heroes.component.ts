@@ -9,6 +9,7 @@ import { HeroService } from '../hero.service';
 })
 export class HeroesComponent implements OnInit {
   private heroes: Hero[];
+  private loading : boolean = false;
 
   /* Reserve the constructor for simple initialization such as wiring constructor parameters to properties. 
   The constructor shouldn't do anything. It certainly shouldn't call a function that makes HTTP requests to
@@ -24,10 +25,11 @@ export class HeroesComponent implements OnInit {
     // this.heroService.getHeroes()
     //   .subscribe(heroes => this.heroes = heroes); //..subscribe(next handler)
 
-
+    this.loading = true;
     // Create observer object, next handler is required. The error and complete handlers are optional
     const myObserver = {
-      next: heroes => this.heroes = heroes,
+      next: heroes => {this.heroes = heroes
+                      this.loading = false},
       error: err => console.error('Observer got an error: ' + err),
       complete: () => console.log('Observer got a complete notification: heroes.component'),
     };

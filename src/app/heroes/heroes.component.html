@@ -1,9 +1,15 @@
 <h2>
 
   My Heroes</h2>
+
+<div *ngIf="loading ; else loaded">
+  <p>Loding ...</p>
+</div>
+
+
+<ng-template #loaded>
 <ul class="heroes">
   <li>
-
     <span> nd </span> <span class="hero-data"> Id </span> Hero's name
   </li>
   <li *ngFor="let hero of heroes; let i=index ; trackBy:fn">
@@ -13,6 +19,8 @@
     <button class="delete" title="delete hero" (click)="delete(hero)">x</button>
   </li>
 </ul>
+</ng-template>
+
 
 <div>
   <label>Hero name:
