@@ -101,21 +101,21 @@ The component **does not subscribe** to the **heroes$** observable. That's the j
 **switchMap()** "grov forklaring"
 sent
 
-  req1
-  
-  req2
-  
-  req3
-  
-  req4
-  
-  req5
-  
-  req6
+      req1
+
+      req2
+
+      req3
+
+      req4
+
+      req5
+
+      req6
   
 rcvd
 
-  on 00:05 result_req1 + result_req3 ==> show result_req3 and discard result_req1 AND (result_req2 on arrive)
+  on 00:05 result_req1 + result_req3 ==> show result_req3 and **discard** both (result_req1 AND (result_req2 on arrive))
   
   on 00:07 result_req4               ==> show result_req4
   
