@@ -99,6 +99,7 @@ The component **does not subscribe** to the **heroes$** observable. That's the j
   terms[1,2,2,3,3,1,1,1,2,2,2] after distinctUntilChanged => terms[1,2,3,1,2] 
 
 **switchMap()** "grov forklaring"
+
 sent
 
       req1
