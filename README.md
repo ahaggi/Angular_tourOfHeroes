@@ -99,19 +99,19 @@ The component **does not subscribe** to the **heroes$** observable. That's the j
   terms[1,2,2,3,3,1,1,1,2,2,2] after distinctUntilChanged => terms[1,2,3,1,2] 
 
 **switchMap()** "grov forklaring"
-  sent
-    req1
-    req2
-    req3
-    req4
-    req5
-    req6
-  rcvd
-    on 00:05 result_req1 + result_req3 ==> show result_req3 and discard result_req1 AND (result_req2 on arrive)
-    on 00:07 result_req4               ==> show result_req4 
-    on 00:10 result_req5 + result_req6 ==> show result_req6 and discard result_req5
+sent
+  req1
+  req2
+  req3
+  req4
+  req5
+  req6
+rcvd
+  on 00:05 result_req1 + result_req3 ==> show result_req3 and discard result_req1 AND (result_req2 on arrive)
+  on 00:07 result_req4               ==> show result_req4
+  on 00:10 result_req5 + result_req6 ==> show result_req6 and discard result_req5
 
-**this.heroes$** = (after waiting 300ms + removing adjecent duplicate value + switchMap)  the Observable rcvd from heroService.searchHeroes(term) 
+**this.heroes$** = (after waiting 300ms + removing adjecent duplicate value + switchMap)  the Observable rcvd from heroService.searchHeroes(term)
 
 *****
 
