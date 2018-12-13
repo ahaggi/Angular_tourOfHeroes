@@ -142,7 +142,10 @@ rcvd
 >switchMap() preserves the original request order while returning only the observable from the most recent HTTP method call. Results from prior calls are canceled and discarded.
 >
 >Note that canceling a previous searchHeroes() Observable doesn't actually abort a pending HTTP request. Unwanted results are simply discarded before they reach your application code.
+> http://rxmarbles.com/#switchMap
 
+**pipe**
+> https://blog.hackages.io/rxjs-5-5-piping-all-the-things-9d469d1b3f44
 
 
 
