@@ -5,11 +5,11 @@
 
 You'll create a **LogService** for saving logs to be displayed, and inject it in two places:
 
- 1- in *HeroService* which uses the service to send a log.
+ 1- in *HeroService* which uses **LogService** to send a log.
  
- 2- in *LogsComponent* which displays that log.
+ 2- in *LogsComponent* which displays that log from **LogService**.
 
-When HeroService fetches fetches the Heroes list:
+When HeroService fetches the Heroes list:
 
   - HeroService add Msg to the LogService
 
