@@ -18,16 +18,8 @@ export class HeroesComponent implements OnInit {
   ngOnInit() {
     this.getHeroes();
   }
-  deleteHero(hero: Hero): void {
-    this.heroService.deleteHero(hero);
-    // this.getHeroes(); 
-    // this.heroes and heroService.heroes is the same object
-    // if myobserver was = {
-      //next: heroes => this.heroes = hs.slice() 
-    // }
-    // then this.hero and heroService.heroes will be 2 diff arrays
-  }
 
+  
 
   getHeroes(): void {
     // this.heroService.getHeroes()
