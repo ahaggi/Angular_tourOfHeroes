@@ -8,7 +8,7 @@ import { HeroService } from '../hero.service';
   styleUrls: ['./heroes.component.css']
 })
 export class HeroesComponent implements OnInit {
-  private heroes: Hero[];
+  heroes: Hero[];
   selectedHero: Hero;
 
   /* Reserve the constructor for simple initialization such as wiring constructor parameters to properties. 
