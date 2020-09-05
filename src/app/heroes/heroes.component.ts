@@ -8,8 +8,8 @@ import { HeroService } from '../hero.service';
   styleUrls: ['./heroes.component.css']
 })
 export class HeroesComponent implements OnInit {
-  private heroes: Hero[];
-  private loading : boolean = false;
+  heroes: Hero[];
+  loading : boolean = false;
 
   /* Reserve the constructor for simple initialization such as wiring constructor parameters to properties. 
   The constructor shouldn't do anything. It certainly shouldn't call a function that makes HTTP requests to
