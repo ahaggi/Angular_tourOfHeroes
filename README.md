@@ -82,8 +82,8 @@ Then define an array of routes with a single route to that component
 
 ```
 const routes: Routes = [
-  { path: 'somecomponent1', component: SomeComponent }
-  { path: 'somecomponent2', component: SomeComponent }
+  { path: 'somecomponent1', component: SomeComponent1 }
+  { path: 'somecomponent2', component: SomeComponent2 }
 ]
 ```
 
